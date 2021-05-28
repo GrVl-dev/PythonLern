@@ -2,12 +2,13 @@ import sys
 import datetime
 import re
 
+
 def to_time(date):
     date = re.sub('[-T:]', ',', date).split(',')
     for i in range(len(date)):
         date[i] = int(date[i])
-    formated_date = datetime.datetime(date[0], date[1], date[2], date[3], date[4])
-    return formated_date
+    format_date = datetime.datetime(date[0], date[1], date[2], date[3], date[4])
+    return format_date
 
 
 input_data = sys.stdin.read().split('\n')
@@ -30,6 +31,8 @@ for i in range(num):
             arrival = (scheduled_arrival - actual_arrival).seconds
         else:
             arrival = (actual_arrival - scheduled_arrival).seconds
-        result = arrival + departure
+        if departure < 1800 and arrival < 1800:
+            result = "Yes"
+        else:
+            result = "No"
         print(result)
-
